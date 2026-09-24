@@ -1,0 +1,41 @@
+// Importa o Angular Material e dá o apelido "mat" (usado como mat.algo)
+@use '@angular/material' as mat;
+
+html {
+  height: 100%; // html ocupa a altura toda da janela
+
+  // Gera as variáveis CSS do tema (--mat-sys-primary etc.).
+  // Sem este bloco, os componentes do Material ficam sem cor.
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette, // cor principal
+        tertiary: mat.$blue-palette, // cor de apoio
+      ),
+      typography: Roboto, // fonte do tema
+      density: 0, // espaçamento padrão dos componentes
+    )
+  );
+}
+
+// Reset aplicado a TODOS os elementos
+* {
+  box-sizing: border-box; // largura inclui padding e borda
+  margin: 0; // zera as margens padrão do navegador
+  padding: 0; // zera os espaçamentos internos padrão
+  // Aplicada em todos porque input e button NÃO herdam a fonte do body
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+// Um único body, juntando o que era do Material com o que era seu
+body {
+  color-scheme: light; // tema claro (pode ser dark ou light dark)
+  background: #f4efe6; // seu fundo bege
+  color: #4a403a; // sua cor de texto
+  min-height: 100vh; // no mínimo a altura da tela
+
+  // Centraliza o conteúdo no meio da tela (horizontal e vertical)
+  display: flex;
+  align-items: center; // centraliza na vertical
+  justify-content: center; // centraliza na horizontal
+}
