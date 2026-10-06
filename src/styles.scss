@@ -1,7 +1,7 @@
-// 1. TODAS as diretivas @use devem ficar estritamente no topo do arquivo
+
 @use '@angular/material' as mat;
 
-// 2. Configuração do tema do Angular Material M3 no HTML
+
 html {
   height: 100%;
 
@@ -17,7 +17,7 @@ html {
   );
 }
 
-// 3. Reset global de box-sizing e tipografia
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -25,16 +25,15 @@ html {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-// 4. Estilo unificado do Body
+
 body {
   color-scheme: light;
-  background-color: #f4efe6; // seu fundo bege
-  color: #4a403a; // sua cor de texto principal
+  background-color: #f4efe6; 
   min-height: 100vh;
   height: 100%;
   margin: 0;
 
-  // Centralização flexbox do conteúdo da aplicação
+
   display: flex;
   align-items: center;
   justify-content: center;
