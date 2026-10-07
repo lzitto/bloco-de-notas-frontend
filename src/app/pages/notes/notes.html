@@ -1,0 +1,32 @@
+<div class="notes-page">
+  <header class="notes-header">
+    <h2>📝 Bloco de Notas</h2>
+    <button (click)="logout()" class="btn-logout">Sair</button>
+  </header>
+
+  <main class="notes-content">
+    <!-- Card de Criação de Nota -->
+    <div class="retro-card new-note-card">
+      <div class="retro-title">Nova Anotação / Recado</div>
+      <div class="form-group">
+        <input type="text" [(ngModel)]="title" placeholder="Título..." />
+      </div>
+      <div class="form-group">
+        <textarea [(ngModel)]="content" rows="3" placeholder="Escreva seu recado aqui..."></textarea>
+      </div>
+      <button (click)="addNote()" class="btn-retro">Publicar Nota</button>
+    </div>
+
+    <!-- Feed de Notas -->
+    <div class="notes-feed">
+      <div class="note-item" *ngFor="let note of notes">
+        <div class="note-header">
+          <strong>{{ note.title }}</strong>
+          <span class="note-date">{{ note.createdAt }}</span>
+        </div>
+        <p class="note-body">{{ note.content }}</p>
+        <button (click)="deleteNote(note.id)" class="btn-delete">Excluir</button>
+      </div>
+    </div>
+  </main>
+</div>

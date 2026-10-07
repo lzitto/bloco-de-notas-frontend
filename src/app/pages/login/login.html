@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="header">
+    <div class="icon">📝</div>
+    <h1>Journey Onwards</h1>
+    <p>Seu bloco de notas pessoal</p>
+  </div>
+
+  <form class="form" (ngSubmit)="onLogin()">
+    <div class="input-group">
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email" name="email" placeholder="seuemail@exemplo.com" required />
+    </div>
+
+    <div class="input-group">
+      <label>Senha</label>
+      <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required />
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Entrar</button>
+      <button type="button" class="btn-secondary" (click)="goToRegister()">Criar Conta</button>
+    </div>
+  </form>
+</div>

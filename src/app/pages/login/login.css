@@ -1,0 +1,107 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e8eff7;
+}
+
+.card {
+  background: #ffffff;
+  border: 2px solid #a5b4fc;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #bac8ff;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 380px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header .icon {
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #3b5bdb;
+}
+
+.header p {
+  margin: 4px 0 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.input-group input {
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #5c7cfa;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  padding: 10px;
+  background-color: #5c7cfa;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #4263eb;
+}
+
+.btn-secondary {
+  padding: 10px;
+  background-color: transparent;
+  color: #5c7cfa;
+  border: 1px solid #5c7cfa;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #dbe4ff;
+}

@@ -1,6 +1,4 @@
-
 @use '@angular/material' as mat;
-
 
 html {
   height: 100%;
@@ -17,6 +15,15 @@ html {
   );
 }
 
+:root {
+  --bg-color: #e8eff7;
+  --card-bg: #ffffff;
+  --primary: #5c7cfa;
+  --primary-hover: #4263eb;
+  --border-color: #ced4da;
+  --text-color: #212529;
+  --header-bg: #dbe4ff;
+}
 
 * {
   box-sizing: border-box;
@@ -25,16 +32,92 @@ html {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-
 body {
   color-scheme: light;
-  background-color: #f4efe6; 
   min-height: 100vh;
-  height: 100%;
-  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
 
-
+.retro-container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.retro-card {
+  background: var(--card-bg);
+  border: 2px solid #a5b4fc;
+  border-radius: 12px;
+  box-shadow: 4px 4px 0px #bac8ff;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.retro-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3b5bdb;
+  border-bottom: 2px dashed #bac8ff;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #495057;
+  }
+
+  input,
+  textarea {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+
+    &:focus {
+      border-color: var(--primary);
+    }
+  }
+}
+
+.btn-retro {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: var(--primary-hover);
+  }
+}
+
+.link-sub {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.85rem;
+  color: #4263eb;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
