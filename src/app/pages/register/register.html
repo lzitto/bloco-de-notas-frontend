@@ -1,21 +1,89 @@
-<div class="retro-container">
-  <div class="retro-card">
-    <div class="retro-title">🌟 Criar Conta</div>
-    <form (ngSubmit)="onRegister()">
-      <div class="form-group">
-        <label>Nome / Apelido</label>
-        <input type="text" [(ngModel)]="name" name="name" required placeholder="Seu nome">
-      </div>
-      <div class="form-group">
-        <label>E-mail</label>
-        <input type="email" [(ngModel)]="email" name="email" required placeholder="seu@email.com">
-      </div>
-      <div class="form-group">
-        <label>Senha</label>
-        <input type="password" [(ngModel)]="password" name="password" required placeholder="******">
-      </div>
-      <button type="submit" class="btn-retro">Cadastrar</button>
-    </form>
-    <a routerLink="/login" class="link-sub">« Voltar para o Login</a>
-  </div>
+<div class="auth-page">
+  <mat-card appearance="outlined" class="auth-card">
+    <div class="auth-content">
+      <header class="auth-header">
+        <mat-icon>person_add</mat-icon>
+        <h1>Criar conta</h1>
+        <p>Leva menos de um minuto</p>
+      </header>
+
+      <form #form="ngForm" (ngSubmit)="onRegister()" class="auth-form">
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            autocomplete="email"
+            required
+            email
+            [(ngModel)]="email"
+            #emailCtrl="ngModel"
+          />
+          @if (emailCtrl.hasError('required')) {
+            <mat-error>Informe o e-mail</mat-error>
+          } @else if (emailCtrl.hasError('email')) {
+            <mat-error>E-mail inválido</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input
+            matInput
+            name="password"
+            autocomplete="new-password"
+            required
+            minlength="6"
+            [type]="hidePassword() ? 'password' : 'text'"
+            [(ngModel)]="password"
+            #passwordCtrl="ngModel"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            [attr.aria-label]="hidePassword() ? 'Mostrar senha' : 'Ocultar senha'"
+            (click)="hidePassword.set(!hidePassword())"
+          >
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (passwordCtrl.hasError('required')) {
+            <mat-error>Informe a senha</mat-error>
+          } @else if (passwordCtrl.hasError('minlength')) {
+            <mat-error>Mínimo de 6 caracteres</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar senha</mat-label>
+          <input
+            matInput
+            name="confirmPassword"
+            autocomplete="new-password"
+            required
+            [type]="hidePassword() ? 'password' : 'text'"
+            [(ngModel)]="confirmPassword"
+            #confirmCtrl="ngModel"
+          />
+          @if (confirmCtrl.hasError('required')) {
+            <mat-error>Confirme a senha</mat-error>
+          }
+        </mat-form-field>
+
+        @if (error()) {
+          <p class="auth-error" role="alert">{{ error() }}</p>
+        }
+
+        <button mat-flat-button type="submit" [disabled]="form.invalid || loading()">
+          {{ loading() ? 'Criando...' : 'Cadastrar' }}
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Já tem conta?
+        <a routerLink="/login">Entrar</a>
+      </p>
+    </div>
+  </mat-card>
 </div>

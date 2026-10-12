@@ -1,6 +1,6 @@
 export interface User {
-  id?: number;
-  name?: string;
+  id: string; // UUID
   email: string;
-  password?: string;
+  passwordHash: string; // nunca guardamos a senha em texto puro
+  createdAt: string; // ISO 8601
 }

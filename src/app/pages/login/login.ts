@@ -1,31 +1,46 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // necessário para o [(ngModel)] do HTML
-import { Router } from '@angular/router';     // serviço que troca de página via código
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule],          // standalone: cada componente declara o que usa
+  imports: [
+    FormsModule,
+    RouterLink,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
   templateUrl: './login.html',
-  styleUrl: './login.css'
 })
-export class Login {               // era "Login" aqui e "LoginComponent" nas rotas
-  // Estes campos ficam ligados aos <input> pelo [(ngModel)] (two-way binding).
-  email = '';
-  password = '';
+export class Login {
+  private auth = inject(AuthService);
+  private router = inject(Router);
 
-  // Injeção de dependência: o Angular entrega o Router pronto.
-  constructor(private router: Router) {}
+  email = signal('');
+  password = signal('');
+  hidePassword = signal(true);
+  loading = signal(false);
+  error = signal('');
 
-  onLogin() {
-    // Só avança se os dois campos estiverem preenchidos.
-    if (this.email && this.password) {
-      this.router.navigate(['/notes']);
+  async onLogin(): Promise<void> {
+    this.error.set('');
+    this.loading.set(true);
+    try {
+      await this.auth.login(this.email(), this.password());
+      await this.router.navigate(['/notes']);
+    } catch (e) {
+      this.error.set(e instanceof Error ? e.message : 'Não foi possível entrar.');
+    } finally {
+      this.loading.set(false);
     }
-  }
-
-  goToRegister() {
-    // CORRIGIDO: era '/cadastro'. Precisa ser o mesmo "path" do app.routes.ts.
-    this.router.navigate(['/register']);
   }
 }

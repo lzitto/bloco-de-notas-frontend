@@ -1,0 +1,24 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <p class="note-text">{{ note().text }}</p>
+
+    <div class="note-footer">
+      <span class="note-date">
+        @if (note().isEdited()) {
+          Editada em {{ note().updatedAt | date: 'dd/MM/yyyy HH:mm' }}
+        } @else {
+          {{ note().createdAt | date: 'dd/MM/yyyy HH:mm' }}
+        }
+      </span>
+
+      <div class="note-actions">
+        <button mat-icon-button type="button" aria-label="Editar nota" (click)="editClick.emit(note())">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button type="button" aria-label="Excluir nota" (click)="deleteClick.emit(note())">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

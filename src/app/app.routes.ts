@@ -1,19 +1,13 @@
 import { Routes } from '@angular/router';
-// Os nomes entre chaves precisam ser IGUAIS ao "export class" de cada arquivo.
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { Notes } from './pages/notes/notes';
+import { authGuard, guestGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  // Quem abre o site na raiz ("") é mandado para o login.
-  // pathMatch 'full' = só redireciona se o caminho for EXATAMENTE vazio.
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-
-  // path = o que aparece na URL; component = a tela mostrada no <router-outlet>.
-  { path: 'login', component: Login },
-  { path: 'register', component: Register },
-  { path: 'notes', component: Notes },
-
-  // Qualquer URL desconhecida volta para o login.
-  { path: '**', redirectTo: 'login' }
+  { path: '', redirectTo: 'notes', pathMatch: 'full' },
+  { path: 'login', component: Login, canActivate: [guestGuard], title: 'Entrar' },
+  { path: 'register', component: Register, canActivate: [guestGuard], title: 'Criar conta' },
+  { path: 'notes', component: Notes, canActivate: [authGuard], title: 'Minhas notas' },
+  { path: '**', redirectTo: 'notes' },
 ];

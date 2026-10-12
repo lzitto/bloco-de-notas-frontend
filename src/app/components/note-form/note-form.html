@@ -1,0 +1,24 @@
+<form class="note-form" (ngSubmit)="submit()">
+  <mat-form-field appearance="outline">
+    <mat-label>{{ note() ? 'Editar nota' : 'Nova nota' }}</mat-label>
+    <textarea
+      #field
+      matInput
+      name="text"
+      rows="4"
+      maxlength="500"
+      placeholder="Escreva sua nota aqui..."
+      [(ngModel)]="text"
+    ></textarea>
+    <mat-hint align="end">{{ text().length }}/500</mat-hint>
+  </mat-form-field>
+
+  <div class="form-actions">
+    @if (note()) {
+      <button mat-button type="button" (click)="cancelled.emit()">Cancelar</button>
+    }
+    <button mat-flat-button type="submit" [disabled]="!text().trim()">
+      {{ note() ? 'Salvar' : 'Adicionar' }}
+    </button>
+  </div>
+</form>

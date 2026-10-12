@@ -1,0 +1,21 @@
+.note-text {
+  margin: 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.note-date {
+  font-size: 0.75rem;
+  color: #6c757d;
+}
+
+.note-actions {
+  display: flex;
+}

@@ -1,24 +1,70 @@
-<div class="card">
-  <div class="header">
-    <div class="icon">📝</div>
-    <h1>Journey Onwards</h1>
-    <p>Seu bloco de notas pessoal</p>
-  </div>
+<div class="auth-page">
+  <mat-card appearance="outlined" class="auth-card">
+    <div class="auth-content">
+      <header class="auth-header">
+        <mat-icon>edit_note</mat-icon>
+        <h1>Journey Onwards</h1>
+        <p>Seu bloco de notas pessoal</p>
+      </header>
 
-  <form class="form" (ngSubmit)="onLogin()">
-    <div class="input-group">
-      <label>Email</label>
-      <input type="email" [(ngModel)]="email" name="email" placeholder="seuemail@exemplo.com" required />
-    </div>
+      <form #form="ngForm" (ngSubmit)="onLogin()" class="auth-form">
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail</mat-label>
+          <input
+            matInput
+            type="email"
+            name="email"
+            autocomplete="email"
+            required
+            email
+            [(ngModel)]="email"
+            #emailCtrl="ngModel"
+          />
+          @if (emailCtrl.hasError('required')) {
+            <mat-error>Informe o e-mail</mat-error>
+          } @else if (emailCtrl.hasError('email')) {
+            <mat-error>E-mail inválido</mat-error>
+          }
+        </mat-form-field>
 
-    <div class="input-group">
-      <label>Senha</label>
-      <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required />
-    </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Senha</mat-label>
+          <input
+            matInput
+            name="password"
+            autocomplete="current-password"
+            required
+            [type]="hidePassword() ? 'password' : 'text'"
+            [(ngModel)]="password"
+            #passwordCtrl="ngModel"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            [attr.aria-label]="hidePassword() ? 'Mostrar senha' : 'Ocultar senha'"
+            (click)="hidePassword.set(!hidePassword())"
+          >
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (passwordCtrl.hasError('required')) {
+            <mat-error>Informe a senha</mat-error>
+          }
+        </mat-form-field>
 
-    <div class="actions">
-      <button type="submit" class="btn-primary">Entrar</button>
-      <button type="button" class="btn-secondary" (click)="goToRegister()">Criar Conta</button>
+        @if (error()) {
+          <p class="auth-error" role="alert">{{ error() }}</p>
+        }
+
+        <button mat-flat-button type="submit" [disabled]="form.invalid || loading()">
+          {{ loading() ? 'Entrando...' : 'Entrar' }}
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Não tem conta?
+        <a routerLink="/register">Criar conta</a>
+      </p>
     </div>
-  </form>
+  </mat-card>
 </div>
