@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NoteService } from '../../services/note.service';
 import { Notes } from './notes';
@@ -48,5 +48,22 @@ describe('Notes', () => {
     expect(notes.notes().length).toBe(1);
     expect(notes.notes()[0].text).toBe('depois');
     expect(fixture.componentInstance.editing()).toBeNull();
+  });
+});
+
+describe('Notes sem usuário logado', () => {
+  it('manda para a tela de login', async () => {
+    localStorage.clear();
+    await TestBed.configureTestingModule({
+      imports: [Notes],
+      providers: [provideRouter([])],
+    }).compileComponents();
+
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+
+    const fixture = TestBed.createComponent(Notes);
+    fixture.detectChanges();
+
+    expect(navigate).toHaveBeenCalledWith(['/login']);
   });
 });

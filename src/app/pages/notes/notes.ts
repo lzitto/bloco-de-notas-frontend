@@ -40,6 +40,11 @@ export class Notes implements OnInit, OnDestroy {
   // Ciclo de vida: roda uma vez, quando o componente é criado.
   ngOnInit(): void {
     this.titleService.setTitle('Minhas notas · Journey Onwards');
+
+    // Sem guard: a própria tela confere se há alguém logado.
+    if (!this.auth.isLoggedIn()) {
+      this.router.navigate(['/login']);
+    }
   }
 
   // Ciclo de vida: roda quando o componente é destruído (saiu da rota).
