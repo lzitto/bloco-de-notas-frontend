@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoteCard } from '../../components/note-card/note-card';
 import { NoteForm } from '../../components/note-form/note-form';
@@ -19,42 +18,30 @@ import { NoteService } from '../../services/note.service';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatSnackBarModule,
     NoteForm,
     NoteCard,
   ],
   templateUrl: './notes.html',
   styleUrl: './notes.css',
 })
-export class Notes implements OnInit, OnDestroy {
+export class Notes implements OnInit {
   private auth = inject(AuthService);
   private noteService = inject(NoteService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
-  private titleService = inject(Title);
 
   readonly user = this.auth.currentUser;
   readonly notes = this.noteService.notes;
   readonly editing = signal<Note | null>(null);
 
-  // Ciclo de vida: roda uma vez, quando o componente é criado.
   ngOnInit(): void {
-    this.titleService.setTitle('Minhas notas · Journey Onwards');
-
-    // Sem guard: a própria tela confere se há alguém logado.
     if (!this.auth.isLoggedIn()) {
       this.router.navigate(['/login']);
     }
   }
 
-  // Ciclo de vida: roda quando o componente é destruído (saiu da rota).
-  ngOnDestroy(): void {
-    this.titleService.setTitle('Journey Onwards - Bloco de Notas');
-  }
-
   onSave(text: string): void {
     const current = this.editing();
-
     if (current) {
       this.noteService.update(current.id, text);
       this.editing.set(null);
@@ -72,7 +59,6 @@ export class Notes implements OnInit, OnDestroy {
 
   onDelete(note: Note): void {
     if (!confirm('Excluir esta nota?')) return;
-
     this.noteService.remove(note.id);
     if (this.editing()?.id === note.id) {
       this.editing.set(null);

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { Login } from './login';
 
 describe('Login', () => {
@@ -41,5 +42,23 @@ describe('Login', () => {
 
     expect(fixture.componentInstance.error()).toBe('E-mail ou senha inválidos.');
     expect(fixture.nativeElement.querySelector('.auth-error')).toBeTruthy();
+  });
+});
+
+describe('Login com usuário logado', () => {
+  it('manda para as notas', async () => {
+    localStorage.clear();
+    await TestBed.configureTestingModule({
+      imports: [Login],
+      providers: [provideRouter([])],
+    }).compileComponents();
+
+    await TestBed.inject(AuthService).register('a@a.com', '123456');
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+
+    const fixture = TestBed.createComponent(Login);
+    fixture.detectChanges();
+
+    expect(navigate).toHaveBeenCalledWith(['/notes']);
   });
 });

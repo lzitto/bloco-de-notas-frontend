@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
   ],
   templateUrl: './login.html',
 })
-export class Login {
+export class Login implements OnInit {
   private auth = inject(AuthService);
   private router = inject(Router);
 
@@ -30,6 +30,12 @@ export class Login {
   hidePassword = signal(true);
   loading = signal(false);
   error = signal('');
+
+  ngOnInit(): void {
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['/notes']);
+    }
+  }
 
   async onLogin(): Promise<void> {
     this.error.set('');

@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { Register } from './register';
 
 describe('Register', () => {
@@ -32,5 +33,23 @@ describe('Register', () => {
 
     expect(fixture.componentInstance.error()).toBe('As senhas não conferem.');
     expect(localStorage.getItem('notepad.users')).toBeNull();
+  });
+});
+
+describe('Register com usuário logado', () => {
+  it('manda para as notas', async () => {
+    localStorage.clear();
+    await TestBed.configureTestingModule({
+      imports: [Register],
+      providers: [provideRouter([])],
+    }).compileComponents();
+
+    await TestBed.inject(AuthService).register('a@a.com', '123456');
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+
+    const fixture = TestBed.createComponent(Register);
+    fixture.detectChanges();
+
+    expect(navigate).toHaveBeenCalledWith(['/notes']);
   });
 });
