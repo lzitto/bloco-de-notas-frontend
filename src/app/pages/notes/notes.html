@@ -1,30 +1,32 @@
-<mat-toolbar class="toolbar">
-  <mat-icon>edit_note</mat-icon>
-  <span class="brand">Journey Onwards</span>
-  <span class="spacer"></span>
-  <span class="user-email">{{ user()?.email }}</span>
-  <button mat-stroked-button type="button" aria-label="Sair" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-    <span class="logout-label">Sair</span>
-  </button>
-</mat-toolbar>
+@if (user()) {
+  <mat-toolbar class="toolbar">
+    <mat-icon>edit_note</mat-icon>
+    <span class="brand">Journey Onwards</span>
+    <span class="spacer"></span>
+    <span class="user-email">{{ user()?.email }}</span>
+    <button mat-stroked-button type="button" aria-label="Sair" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span class="logout-label">Sair</span>
+    </button>
+  </mat-toolbar>
 
-<main class="content">
-  <mat-card appearance="outlined">
-    <mat-card-content>
-      <app-note-form [note]="editing()" (saved)="onSave($event)" (cancelled)="editing.set(null)" />
-    </mat-card-content>
-  </mat-card>
+  <main class="content">
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <app-note-form [note]="editing()" (saved)="onSave($event)" (cancelled)="editing.set(null)" />
+      </mat-card-content>
+    </mat-card>
 
-  @if (notes().length === 0) {
-    <p class="empty">Você ainda não tem notas. Escreva a primeira acima.</p>
-  } @else {
-    <ul class="notes-list">
-      @for (note of notes(); track note.id) {
-        <li>
-          <app-note-card [note]="note" (editClick)="onEdit($event)" (deleteClick)="onDelete($event)" />
-        </li>
-      }
-    </ul>
-  }
-</main>
+    @if (notes().length === 0) {
+      <p class="empty">Você ainda não tem notas. Escreva a primeira acima.</p>
+    } @else {
+      <ul class="notes-list">
+        @for (note of notes(); track note.id) {
+          <li>
+            <app-note-card [note]="note" (editClick)="onEdit($event)" (deleteClick)="onDelete($event)" />
+          </li>
+        }
+      </ul>
+    }
+  </main>
+}

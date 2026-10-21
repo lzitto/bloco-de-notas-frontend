@@ -5,8 +5,8 @@ import { Notes } from './pages/notes/notes';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'notes', pathMatch: 'full' },
-  { path: 'login', component: Login, title: 'Entrar' },
-  { path: 'register', component: Register, title: 'Criar conta' },
-  { path: 'notes', component: Notes, title: 'Minhas notas' },
+  { path: 'login', component: Login, title: 'Entrar · Journey Onwards' },
+  { path: 'register', component: Register, title: 'Criar conta · Journey Onwards' },
+  { path: 'notes', component: Notes, title: 'Minhas notas · Journey Onwards' },
   { path: '**', redirectTo: 'notes' },
 ];

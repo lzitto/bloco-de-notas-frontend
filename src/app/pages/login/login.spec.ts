@@ -59,6 +59,6 @@ describe('Login com usuário logado', () => {
     const fixture = TestBed.createComponent(Login);
     fixture.detectChanges();
 
-    expect(navigate).toHaveBeenCalledWith(['/notes']);
+    expect(navigate).toHaveBeenCalledWith(['/notes'], { replaceUrl: true });
   });
 });

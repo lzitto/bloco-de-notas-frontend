@@ -64,6 +64,6 @@ describe('Notes sem usuário logado', () => {
     const fixture = TestBed.createComponent(Notes);
     fixture.detectChanges();
 
-    expect(navigate).toHaveBeenCalledWith(['/login']);
+    expect(navigate).toHaveBeenCalledWith(['/login'], { replaceUrl: true });
   });
 });

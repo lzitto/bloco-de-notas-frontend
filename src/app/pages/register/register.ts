@@ -34,7 +34,7 @@ export class Register implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/notes']);
+      this.router.navigate(['/notes'], { replaceUrl: true });
     }
   }
 
@@ -49,7 +49,7 @@ export class Register implements OnInit {
     this.loading.set(true);
     try {
       await this.auth.register(this.email(), this.password());
-      await this.router.navigate(['/notes']);
+      await this.router.navigate(['/notes'], { replaceUrl: true });
     } catch (e) {
       this.error.set(e instanceof Error ? e.message : 'Não foi possível criar a conta.');
     } finally {

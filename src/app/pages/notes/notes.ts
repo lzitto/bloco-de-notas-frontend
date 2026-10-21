@@ -36,7 +36,7 @@ export class Notes implements OnInit {
 
   ngOnInit(): void {
     if (!this.auth.isLoggedIn()) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], { replaceUrl: true });
     }
   }
 

@@ -50,6 +50,6 @@ describe('Register com usuário logado', () => {
     const fixture = TestBed.createComponent(Register);
     fixture.detectChanges();
 
-    expect(navigate).toHaveBeenCalledWith(['/notes']);
+    expect(navigate).toHaveBeenCalledWith(['/notes'], { replaceUrl: true });
   });
 });

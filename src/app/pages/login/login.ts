@@ -33,7 +33,7 @@ export class Login implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/notes']);
+      this.router.navigate(['/notes'], { replaceUrl: true });
     }
   }
 
@@ -42,7 +42,7 @@ export class Login implements OnInit {
     this.loading.set(true);
     try {
       await this.auth.login(this.email(), this.password());
-      await this.router.navigate(['/notes']);
+      await this.router.navigate(['/notes'], { replaceUrl: true });
     } catch (e) {
       this.error.set(e instanceof Error ? e.message : 'Não foi possível entrar.');
     } finally {
